@@ -51,19 +51,3 @@ func main()  {
 		fmt.Println("")
 	}
 }
-
-func getRootDir(path string) (vcs.Repo, error) {
-	var err error
-	for ; ; {
-		repo, err := vcs.NewRepo("", path)
-		if err == nil {
-			return repo, err
-		}
-		if os.Getenv("HOME") == path {
-			break
-		}
-		path = filepath.Dir(path)
-	}
-
-	return nil, err
-}
