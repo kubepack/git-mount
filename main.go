@@ -24,7 +24,7 @@ func main()  {
 				log.Fatalln(err)
 			}
 			if fileInfo.IsDir() {
-				outPath := filepath.Join(path, "_outlook")
+				outPath := filepath.Join(path, "manifests", "output")
 				_, err := os.Stat(outPath)
 				if err == nil {
 					cmd := exec.Command("kubectl", "apply", "-R" ,"-f", outPath)
