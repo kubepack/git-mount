@@ -4,19 +4,20 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"github.com/Masterminds/vcs"
 	"io/ioutil"
 	"log"
 	"os/exec"
 )
 
-func main()  {
+func main() {
+	log.Println("Server Started...")
 	for ; ; {
 		dicision := false
 		files, err := ioutil.ReadDir("/mypath")
 		if err != nil {
 			log.Println(err)
 		}
+		fmt.Println(files)
 		for _, value := range files {
 			path := filepath.Join("/mypath", value.Name())
 			fileInfo, err := os.Stat(path)
@@ -27,7 +28,7 @@ func main()  {
 				outPath := filepath.Join(path, "manifests", "output")
 				_, err := os.Stat(outPath)
 				if err == nil {
-					cmd := exec.Command("kubectl", "apply", "-R" ,"-f", outPath)
+					cmd := exec.Command("kubectl", "apply", "-R", "-f", outPath)
 					cmd.Stdout = os.Stdout
 					cmd.Stderr = os.Stderr
 
@@ -47,7 +48,7 @@ func main()  {
 		}
 	}
 
-	for ; ;  {
+	for ; ; {
 		fmt.Println("")
 	}
 }
